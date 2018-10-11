@@ -1,0 +1,26 @@
+[
+	{
+		"settlement" : [
+			{
+				"name" : "Towney McTownface",
+				"population" : 1488,
+				"production" : [ 
+					{
+						"product" : "apple",
+						"output" : 1
+					} 
+				]
+			},
+			{
+				"name" : "That other town",
+				"population" : 1990,
+				"production" : [
+					{
+						"product" : "iron",
+						"output" : 2
+					}
+				]
+			}
+		]
+	}
+]
