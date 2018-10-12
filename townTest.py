@@ -2,22 +2,30 @@ import sys
 import time
 
 class Ware:
-    def __init__(self, name, amount):
+    def __init__(self, name, amount, production, production_cost, rating):
         self.name = name
         self.amount = amount
         self.price = 0
+        self.production = production
+        self.production_cost = production_cost
+        self.rating = rating
+       	
 
 class Market:
     def __init__(self):
         self.wares = {}
     def update(self, town):
         for ware in self.wares.values():
-            #PRICE CALCULATION (SUPPLY/DEMAND)
-            supply = ware.amount
-            demand = town.pop
-            ware.price = demand - supply
+            supply = ware.amount + ware.production
+            ware.price = int(town.pop / (supply+1))
             if ware.price < 1:
-                ware.price = 1
+           	    ware.price = 1
+            demand = int(ware.rating / ware.price)
+            ware.amount = supply - demand
+            if ware.price <= ware.production_cost:
+                ware.production = int(ware.production / 2)
+            if ware.price > ware.production_cost:
+                ware.production += 1
 
 class Town:
     def __init__(self, name, pop, market):
@@ -33,11 +41,11 @@ def loadTestTown():
     pop = 1000
     market = Market()
     wares = [
-            Ware("Bread", 1000),
-            Ware("Beer", 1000),
-            Ware("Grain", 1000),
-            Ware("Honey", 1000),
-            Ware("Cloth", 1000),
+            Ware("Bread", 0, 0, 20, 40),
+            Ware("Beer", 0, 0, 50, 90),
+            Ware("Grain", 0, 0, 10, 20),
+            Ware("Honey", 0, 0, 30, 70),
+            Ware("Cloth", 0, 0, 40, 30),
         ]
     for ware in wares:
         market.wares[ware.name] = ware
@@ -45,9 +53,9 @@ def loadTestTown():
 
 def printMarketMenu(town):
     print(town.name, "Market")
-    print("\tamount\tprice")
+    print("\tamount\tprice\tproduction")
     for ware in town.market.wares.values():
-        print(ware.name + "\t" + str(ware.amount) + "\t" + str(ware.price))
+        print(ware.name + "\t" + str(ware.amount) + "\t" + str(ware.price) + "\t" + str(ware.production))
 
 def main():
     town = loadTestTown()
