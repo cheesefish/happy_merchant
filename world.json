@@ -1,23 +1,44 @@
 [
 	{
-		"settlement" : [
+		"settlements" : [
 			{
-				"name" : "Towney McTownface",
-				"population" : 1488,
-				"production" : [ 
+				"name" : "Aviv",
+				"population" : 1000,
+				"wares" : [ 
 					{
-						"product" : "apple",
-						"output" : 1
-					} 
-				]
-			},
-			{
-				"name" : "That other town",
-				"population" : 1990,
-				"production" : [
+						"name" : "bread",
+						"amount" : 0,
+						"production" : 0,
+						"production_cost" : 20,
+						"rating" : 40
+					},
 					{
-						"product" : "iron",
-						"output" : 2
+						"name" : "beer",
+						"amount" : 0,
+						"production" : 0,
+						"production_cost" : 50,
+						"rating" : 90
+					},
+					{
+						"name" : "grain",
+						"amount" : 0,
+						"production" : 0,
+						"production_cost" : 10,
+						"rating" : 20
+					},
+					{
+						"name" : "honey",
+						"amount" : 0,
+						"production" : 0,
+						"production_cost" : 30,
+						"rating" : 70
+					},
+					{
+						"name" : "cloth",
+						"amount" : 0,
+						"production" : 0,
+						"production_cost" : 40,
+						"rating" : 30
 					}
 				]
 			}
