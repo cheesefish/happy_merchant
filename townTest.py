@@ -1,5 +1,6 @@
 import sys
 import time
+import json
 
 class Ware:
     def __init__(self, name, amount, production, production_cost, rating):
@@ -36,17 +37,24 @@ class Town:
 #################################################
 #Test code:
 
+#loads the first town in world.json
 def loadTestTown():
-    name = "Aviv"
-    pop = 1000
-    market = Market()
-    wares = [
-            Ware("Bread", 0, 0, 20, 40),
-            Ware("Beer", 0, 0, 50, 90),
-            Ware("Grain", 0, 0, 10, 20),
-            Ware("Honey", 0, 0, 30, 70),
-            Ware("Cloth", 0, 0, 40, 30),
-        ]
+    with open('world.json', 'r') as w:
+	    world = json.load(w)
+    
+    first_town = world[0]['settlements'][0]
+    name = first_town['name']
+    pop = first_town['population']
+    market = Market() 
+    wares = []
+    for i in first_town['wares']:
+        wn = i['name']
+        wa = i['amount']
+        wp = i['production']
+        wpc = i['production_cost']
+        wr = i['rating']
+        wares.append(Ware(wn,wa,wp,wpc,wr))
+    
     for ware in wares:
         market.wares[ware.name] = ware
     return Town(name, pop, market)
