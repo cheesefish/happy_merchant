@@ -1,4 +1,6 @@
-#<name>;<productionType>
+#temporary file for all Wares.
+#TODO: Replace with json.
+#Format: <name>;<productionType>
 Bread;artisan
 Beer;artisan
 Grain;basic
