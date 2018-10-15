@@ -1,9 +1,0 @@
-#temporary file for all Wares.
-#TODO: Replace with json.
-#Format: <name>;<productionType>
-Bread;artisan
-Beer;artisan
-Grain;basic
-Honey;basic
-Cloth;artisan
-Apples;basic
