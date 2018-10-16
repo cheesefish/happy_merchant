@@ -2,7 +2,7 @@
 class ProductionIO:
     def __init__(self, ware, amount=1):
         self.ware = ware
-        self.amount = int(amount)
+        self.amount = float(amount)
 
 #Represents rural 'industry' types (production of basic resources, based on arable land area). Farming.
 class Agriculture:
@@ -18,7 +18,7 @@ class Industry:
         self.name = str(name)
         self.inputs = inputs #inputs = [ProductionIO(ware, amount),...]
         self.outputs = outputs #outputs = [ProductionIO(ware, amount),...]
-        self.throughput = int(throughput)
+        self.throughput = float(throughput)
     def __str__(self):
         return self.name
     

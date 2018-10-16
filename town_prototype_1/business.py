@@ -41,8 +41,8 @@ class Business:
 #####################################################
 #TEST CODE
 
-from files import INDUSTRIES
 if __name__ == "__main__":
+    from files import INDUSTRIES
     print("constructor/str test: ",end="")
     str(Business("",INDUSTRIES["Bakery"]))
     print("success-ish")

@@ -39,8 +39,8 @@ def checkStockTransferability(fromStock, toStock, amount):
 
 #Transfers the given amount from one stock to the other. Can result in a bad state (negative stock amounts).
 def transferStock(fromStock, toStock, amount):
-    fromStock.amount -= amount
-    toStock.amount += amount
+    fromStock.amount -= int(amount)
+    toStock.amount += int(amount)
 
 #####################################################
 #TEST CODE
