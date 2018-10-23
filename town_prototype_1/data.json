@@ -1,0 +1,155 @@
+[
+	{
+		"settlements" : [
+			{
+				"name" : "Aviv",
+				"population" : 1000,
+				"acres" : 1000,
+				"land allocation" :  [
+					{
+						"type" : "apple farm",
+						"acres" : 10
+					},
+					{
+						"type" : "grain farm",
+						"acres" : 50
+					},
+					{
+						"type" : "hops farm",
+						"acres" : 20
+					},
+					{
+						"type" : "cattle farm",
+						"acres" : 20
+					}
+				],
+				"wares" : [ 
+					{
+						"name" : "bread",
+						"amount" : 0,
+						"production" : 0,
+						"production_cost" : 20,
+						"rating" : 40
+					},
+					{
+						"name" : "beer",
+						"amount" : 0,
+						"production" : 0,
+						"production_cost" : 50,
+						"rating" : 90
+					},
+					{
+						"name" : "grain",
+						"amount" : 0,
+						"production" : 0,
+						"production_cost" : 10,
+						"rating" : 20
+					},
+					{
+						"name" : "honey",
+						"amount" : 0,
+						"production" : 0,
+						"production_cost" : 30,
+						"rating" : 70
+					},
+					{
+						"name" : "cloth",
+						"amount" : 0,
+						"production" : 0,
+						"production_cost" : 40,
+						"rating" : 30
+					}
+				]
+			}
+		]
+	},
+	{
+		
+		"wares" : [
+			{
+				"name" : "apples"
+			},
+			{
+				"name" : "grain"
+			},
+			{
+				"name" : "hops"
+			},
+			{
+				"name" : "milk"
+			},
+			{
+				"name" : "beef"
+			},
+			{
+				"name" : "beer"
+			},
+			{
+				"name" : "butter"
+			},
+			{
+				"name" : "cheese"
+			}
+		]
+	},
+	{
+		"agricultures" : [
+			{
+				"type" : "apple farm",
+				"production" : [
+					{
+						"ware" : "apples",
+						"output" : 10
+					}
+				]
+			},
+			{
+				"type" : "grain farm",
+				"production" : [
+					{
+						"ware" : "grain",
+						"output" : 15
+					}
+				]
+			},
+			{
+				"type" : "hops farm",
+				"production" : [
+					{
+						"ware" : "hops",
+						"output" : 10
+					}
+				]
+			},
+			{
+				"type" : "cattle farm",
+				"production" : [
+					{
+						"ware" : "milk",
+						"output" : 10
+					},
+					{
+						"ware" : "beef",
+						"output" : 5
+					}
+				]
+			}
+		]
+	}
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
