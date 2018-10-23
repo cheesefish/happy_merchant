@@ -2,7 +2,7 @@
 
 # Imports
 import json
-    
+	
 with open('world.json', 'r') as w:
 	world = json.load(w)
 	
