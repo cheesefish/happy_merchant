@@ -20,64 +20,64 @@ AGRICULTURES = {} #dict of all loaded agricultures
 INDUSTRIES = {} #dict of all loaded industries
 TOWNS = {} #dict of all loaded towns
 
+#json data
+with open('data.json', 'r') as d:
+		data = json.load(d)
+
 #######################################################
 #READ FUNCTIONS
 
 def loadWaresTemp():
-	wares = [
-			Ware("Apples"),
-			Ware("Grain"),
-			Ware("Hops"),
-			Ware("Milk"),
-			Ware("Beef"),
-			Ware("Bread"),
-			Ware("Beer"),
-			Ware("Butter"),
-			Ware("Cheese")
-		]
+	wares = data[1]['wares']
 	for ware in wares:
-		WARES[str(ware)] = ware
+		name = ware['name']
+		WARES[str(Ware(name))] = Ware(name)
+	
 
 def loadAgriculturesTemp():
-	k = 0.001
-	agricultures = [
-			Agriculture("Apple farm", [ProductionIO("Apples",k*10)]),
-			Agriculture("Grain farm", [ProductionIO("Grain",k*15)]),
-			Agriculture("Hops farm", [ProductionIO("Hops",k*10)]),
-			Agriculture("Cattle farm", [ProductionIO("Milk",k*10),ProductionIO("Beef",k*5)])
-		]
+	k = 0.001	
+	agricultures = data[2]['agricultures']	
 	for agriculture in agricultures:
-		AGRICULTURES[str(agriculture)] = agriculture
+		farm = agriculture['type']
+		farm_products = []
+		output_wares = agriculture['output']
+		for ware in output_wares:
+			farm_products.append(ProductionIO(ware['ware'],k*ware['amount']))
+		AGRICULTURES[str(Agriculture(farm, farm_products))] = Agriculture(farm, farm_products)	 
 		
 def loadIndustriesTemp():
-	industries = [
-			Industry("Bakery", [ProductionIO("Grain",1)], [ProductionIO("Bread",1)],1),
-			Industry("Brewery", [ProductionIO("Grain",10),ProductionIO("Hops",5)], [ProductionIO("Beer",1)],0.1),
-			Industry("Dairy", [ProductionIO("Milk",1)], [ProductionIO("Butter",1),ProductionIO("Cheese",1)],1)
-		]
+	industries = data[3]['industries']
 	for industry in industries:
-		INDUSTRIES[str(industry)] = industry
+		artisan = industry['type']
+		inputs = []
+		input_wares = industry['input']
+		for ware in input_wares:
+			inputs.append(ProductionIO(ware['ware'], ware['amount']))
+		outputs = []
+		output_wares = industry['output']
+		for ware in output_wares:
+			outputs.append(ProductionIO(ware['ware'], ware['amount']))
+		throughput = industry['throughput']
+		INDUSTRIES[str(Industry(artisan, inputs, outputs, throughput))] = Industry(artisan, inputs, outputs, throughput)
+
 
 def loadTestTownTemp():
-	with open('data.json', 'r') as d:
-		data = json.load(d)
-
 	first_town = data[0]['settlements'][0]
 	name = first_town['name']
 	acres = first_town['acres']
 	town = Town(name, acres)
 	agriallocs = [
-			AgricultureAllocation(AGRICULTURES["Apple farm"], 10),
-			AgricultureAllocation(AGRICULTURES["Grain farm"], 50),
-			AgricultureAllocation(AGRICULTURES["Hops farm"], 20),
-			AgricultureAllocation(AGRICULTURES["Cattle farm"], 20)
+			AgricultureAllocation(AGRICULTURES["apple farm"], 10),
+			AgricultureAllocation(AGRICULTURES["grain farm"], 50),
+			AgricultureAllocation(AGRICULTURES["hops farm"], 20),
+			AgricultureAllocation(AGRICULTURES["cattle farm"], 20)
 		]
 	town.agriallocs = agriallocs
 	businesses = [
-			Business("Joe's Bakery", INDUSTRIES["Bakery"]),
-			Business("Bob's Bakery", INDUSTRIES["Bakery"]),
-			Business("Ye Olde Brewery", INDUSTRIES["Brewery"]),
-			Business("The Cheese & Butter Company", INDUSTRIES["Dairy"])
+			Business("Joe's Bakery", INDUSTRIES["bakery"]),
+			Business("Bob's Bakery", INDUSTRIES["bakery"]),
+			Business("Ye Olde Brewery", INDUSTRIES["brewery"]),
+			Business("The Cheese & Butter Company", INDUSTRIES["dairy"])
 		]
 	for business in businesses:
 		town.addBusiness(business)

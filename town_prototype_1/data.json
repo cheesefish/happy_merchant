@@ -22,43 +22,6 @@
 						"type" : "cattle farm",
 						"acres" : 20
 					}
-				],
-				"wares" : [ 
-					{
-						"name" : "bread",
-						"amount" : 0,
-						"production" : 0,
-						"production_cost" : 20,
-						"rating" : 40
-					},
-					{
-						"name" : "beer",
-						"amount" : 0,
-						"production" : 0,
-						"production_cost" : 50,
-						"rating" : 90
-					},
-					{
-						"name" : "grain",
-						"amount" : 0,
-						"production" : 0,
-						"production_cost" : 10,
-						"rating" : 20
-					},
-					{
-						"name" : "honey",
-						"amount" : 0,
-						"production" : 0,
-						"production_cost" : 30,
-						"rating" : 70
-					},
-					{
-						"name" : "cloth",
-						"amount" : 0,
-						"production" : 0,
-						"production_cost" : 40,
-						"rating" : 30
-					}
 				]
 			}
 		]
@@ -96,43 +59,104 @@
 		"agricultures" : [
 			{
 				"type" : "apple farm",
-				"production" : [
+				"output" : [
 					{
 						"ware" : "apples",
-						"output" : 10
+						"amount" : 10
 					}
 				]
 			},
 			{
 				"type" : "grain farm",
-				"production" : [
+				"output" : [
 					{
 						"ware" : "grain",
-						"output" : 15
+						"amount" : 15
 					}
 				]
 			},
 			{
 				"type" : "hops farm",
-				"production" : [
+				"output" : [
 					{
 						"ware" : "hops",
-						"output" : 10
+						"amount" : 10
 					}
 				]
 			},
 			{
 				"type" : "cattle farm",
-				"production" : [
+				"output" : [
 					{
 						"ware" : "milk",
-						"output" : 10
+						"amount" : 10
 					},
 					{
 						"ware" : "beef",
-						"output" : 5
+						"amount" : 5
 					}
 				]
+			}
+		]
+	},
+	{
+		"industries" : [
+			{
+				"type" : "bakery",
+				"input" : [
+					{
+						"ware" : "grain",
+						"amount" : 1
+					}
+				],
+				"output" : [
+					{
+						"ware" : "bread",
+						"amount" : 1
+					}
+				],
+				"throughput" : 1
+			},
+			{
+				"type" : "brewery",
+				"input" : [
+					{
+						"ware" : "grain",
+						"amount" : 10
+					},
+					{
+						"ware" : "hops",
+						"amount" : 5
+					}
+				],
+				"output" : [
+					{
+						"ware" : "beer",
+						"amount" : 1
+					}
+				],
+				"throughput" : 0.1
+			},
+			{
+				"type" : "dairy",
+				"input" : [
+					{
+						"ware" : "milk",
+						"amount" : 1
+					}
+				],
+				"output" : [
+					{
+						"ware" : "butter",
+						"amount" : 1
+					},
+					{
+						"ware" : "cheese",
+						"amount" : 1
+					}
+					
+				],
+				"throughput" : 1
 			}
 		]
 	}
