@@ -20,6 +20,10 @@
 				{
 					"type" : "cattle farm",
 					"acres" : 20
+				},
+				{
+					"type" : "internet",
+					"acres" : 10
 				}
 			],
 			"Businesses" : [
@@ -40,7 +44,7 @@
 					"type" : "dairy"
 				}
 			]
-		}
+		}			
 	],
 
 	"wares" : [
@@ -67,6 +71,9 @@
 		},
 		{
 			"name" : "cheese"
+		},
+		{
+			"name" : "memes"
 		}
 	],
 
@@ -108,6 +115,15 @@
 				{
 					"ware" : "beef",
 					"amount" : 5
+				}
+			]
+		},
+		{
+			"type" : "internet",
+			"output" : [
+				{
+					"ware" : "memes",
+					"amount" : 1000
 				}
 			]
 		}
