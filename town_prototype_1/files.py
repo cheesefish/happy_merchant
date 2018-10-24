@@ -28,7 +28,7 @@ with open('data.json', 'r') as d:
 #READ FUNCTIONS
 
 def loadWaresTemp():
-	wares = data[1]['wares']
+	wares = data['wares']
 	for ware in wares:
 		name = ware['name']
 		WARES[str(Ware(name))] = Ware(name)
@@ -36,7 +36,7 @@ def loadWaresTemp():
 
 def loadAgriculturesTemp():
 	k = 0.001	
-	agricultures = data[2]['agricultures']	
+	agricultures = data['agricultures']	
 	for agriculture in agricultures:
 		farm = agriculture['type']
 		farm_products = []
@@ -46,7 +46,7 @@ def loadAgriculturesTemp():
 		AGRICULTURES[str(Agriculture(farm, farm_products))] = Agriculture(farm, farm_products)	 
 		
 def loadIndustriesTemp():
-	industries = data[3]['industries']
+	industries = data['industries']
 	for industry in industries:
 		artisan = industry['type']
 		inputs = []
@@ -62,7 +62,7 @@ def loadIndustriesTemp():
 
 
 def loadTestTownTemp():
-	settlements = data[0]['settlements']
+	settlements = data['settlements']
 	for settlement in settlements:
 		name = settlement['name']
 		population = settlement['population']
