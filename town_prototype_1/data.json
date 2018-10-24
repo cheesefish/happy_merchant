@@ -22,6 +22,24 @@
 						"type" : "cattle farm",
 						"acres" : 20
 					}
+				],
+				"Businesses" : [
+					{
+						"name" : "Joe's Bakery",
+						"type" : "bakery"
+					},
+					{
+						"name" : "Bob's Bakery",
+						"type" : "bakery"
+					},
+					{
+						"name" : "Ye Olde Brewery",
+						"type" : "brewery"
+					},
+					{
+						"name" : "The Cheese & Butter Company",
+						"type" : "dairy"
+					}
 				]
 			}
 		]
