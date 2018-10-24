@@ -62,26 +62,23 @@ def loadIndustriesTemp():
 
 
 def loadTestTownTemp():
-	first_town = data[0]['settlements'][0]
-	name = first_town['name']
-	acres = first_town['acres']
-	town = Town(name, acres)
-	agriallocs = [
-			AgricultureAllocation(AGRICULTURES["apple farm"], 10),
-			AgricultureAllocation(AGRICULTURES["grain farm"], 50),
-			AgricultureAllocation(AGRICULTURES["hops farm"], 20),
-			AgricultureAllocation(AGRICULTURES["cattle farm"], 20)
-		]
-	town.agriallocs = agriallocs
-	businesses = [
-			Business("Joe's Bakery", INDUSTRIES["bakery"]),
-			Business("Bob's Bakery", INDUSTRIES["bakery"]),
-			Business("Ye Olde Brewery", INDUSTRIES["brewery"]),
-			Business("The Cheese & Butter Company", INDUSTRIES["dairy"])
-		]
-	for business in businesses:
-		town.addBusiness(business)
-	TOWNS[name] = town
+	settlements = data[0]['settlements']
+	for settlement in settlements:
+		name = settlement['name']
+		population = settlement['population']
+		acres = settlement['acres']
+		town = Town(name, acres)
+		
+		land_allocation = []
+		lands = settlement['land allocation']
+		for land in lands:
+			land_allocation.append(AgricultureAllocation(AGRICULTURES[land['type']], land['acres']))
+		town.agriallocs = land_allocation
+		
+		businesses = settlement['Businesses']
+		for business in businesses:
+			town.addBusiness(Business(business['name'],INDUSTRIES[str(business['type'])]))
+		TOWNS[settlement['name']] = town
 	
 #######################################################
 #EXECUTION CODE
