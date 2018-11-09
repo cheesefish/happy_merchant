@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from warebatch import WareBatch
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 #Represents a collection of ware batches, an inventory; e.g. market, business, or personal inventory. 
 class WareStockABC(ABC):

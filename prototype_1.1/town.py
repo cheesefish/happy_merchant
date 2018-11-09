@@ -5,14 +5,14 @@ from businesses import Business
 from population import Population
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 class TownABC(ABC):
 	def __init__(self):
-		self.market = Market()
-		self.agriculture = Agriculture()
+		self.market = MarketABC()
+		self.agriculture = AgricultureABC()
 		self.businesses = list()
-		self.population = Population()
+		self.population = PopulationABC()
 
 	#User interface of town.
 	@abstractmethod

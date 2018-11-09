@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from wareamount import WareAmount
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 #WorkerType represents a type of worker. There is exactly one unique instance of every type of worker.
 #The instances of WorkerType are loaded from file and kept in a dictionary with name as key.

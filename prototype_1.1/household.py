@@ -3,12 +3,12 @@ from warestock import WareStock
 from worker import Worker
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 #Represents a population unit, with its own inventory and a main provider.
-class HouseholdABC(WareStock, ABC):
+class HouseholdABC(WareStockABC, ABC):
 	def __init__(self):
-		self.worker = Worker() #Main provider of household.
+		self.worker = WorkerABC() #Main provider of household.
 		self.size = int() #Number of people in the household.
 
 ################################################################################

@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 #WareType represents a type of tradable goods. There is exactly one unique instance of every type of Ware.
 #The instances of WareType are loaded from file and kept in a dictionary with name as key.

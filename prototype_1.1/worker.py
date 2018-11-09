@@ -2,12 +2,12 @@ from abc import ABC, abstractmethod
 from workertype import WorkerType
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 #Represents a single worker.
 class WorkerABC(ABC):
 	def __init__(self):
-		self.workerType = WorkerType() #Profession of the worker.
+		self.workerType = WorkerTypeABC() #Profession of the worker.
 		self.experience = float() #Experience of worker.
 
 ################################################################################

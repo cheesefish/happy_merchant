@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from wareamount import WareAmount
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 #FarmType represents a type of farm. There is exactly one unique instance of every type of farm.
 #The instances of FarmType are loaded from file and kept in a dictionary with name as key.

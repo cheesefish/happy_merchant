@@ -3,12 +3,12 @@ from warestock import WareStock
 from businesstype import BusinessType
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 #Represents a business 
-class BusinessABC(WareStock, ABC):
+class BusinessABC(WareStockABC, ABC):
 	def __init__(self):
-		self.businessType = BusinessType()
+		self.businessType = BusinessTypeABC()
 		self.staff = list()
 
 ################################################################################

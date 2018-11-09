@@ -4,11 +4,11 @@ from warestock import WareStock
 from warebatch import WareBatch
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 #Represents the central trading hub of a town. Functions as a town inventory where goods are gathered and distributed.
 #Transactions require equal exchange, even for local actors such as population and businesses.
-class MarketABC(WareStock, ABC):
+class MarketABC(WareStockABC, ABC):
 	def __init__(self):
 		self.exchangeOffers = list()
 		self.exchangeDemands = list()

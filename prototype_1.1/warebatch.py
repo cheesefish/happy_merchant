@@ -2,10 +2,10 @@ from abc import ABC, abstractmethod
 from wareamount import WareAmount
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 #WareBatch represents an amount of wares with the same perishability state.
-class WareBatchABC(WareAmount, ABC):
+class WareBatchABC(WareAmountABC, ABC):
 	def __init__(self):	
 		super().__init__()
 		self.perishStatus = float() #Starts at 1.0 (100%) and is degraded over time.

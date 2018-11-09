@@ -2,12 +2,12 @@ from abc import ABC, abstractmethod
 from waretype import WareType
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 #A certain amount of a given ware. Usually doesn't represent 'real' goods. Rather represents e.g. input, output, or needs.
 class WareAmountABC(ABC):
 	def __init__(self):	
-		self.wareType = WareType()
+		self.wareType = WareTypeABC()
 		self.amount = int()
 
 	#Returns total weight (amount * waretype weight).

@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from farmtype import FarmType
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 #Represents the agricultural production of a town.
 class AgricultureABC(ABC):

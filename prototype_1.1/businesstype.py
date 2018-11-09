@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from wareamount import WareAmount
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 #BusinessType represents a type of business. There is exactly one unique instance of every type of business.
 #The instances of BusinessType are loaded from file and kept in a dictionary with name as key.

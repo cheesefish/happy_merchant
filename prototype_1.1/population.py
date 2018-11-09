@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from household import Household
 
 ################################################################################
-#ABSTRACTION
+#ABSTRACT CODE
 
 #Represents the population of a town, consisting of multiple households.
 class PopulationABC(ABC):
