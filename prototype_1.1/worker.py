@@ -1,8 +1,11 @@
-from abc import ABC, abstractmethod
-from workertype import WorkerType
+#Karl Lindgren
+#Last edited: 09-11-2018
 
 ################################################################################
 #ABSTRACT CODE
+
+from abc import ABC, abstractmethod
+from workertype import WorkerTypeABC
 
 #Represents a single worker.
 class WorkerABC(ABC):
@@ -20,5 +23,13 @@ class Worker(WorkerABC):
 ################################################################################
 #TEST CODE
 
+import unittest
+
+class TestWorker(unittest.TestCase):
+	def test_attributes(self):
+		t = Worker()
+		t.workerType
+		t.experience
+
 if __name__ == "__main__":
-	Worker()
+	unittest.main(exit=False)

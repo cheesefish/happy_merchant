@@ -1,8 +1,11 @@
-from abc import ABC, abstractmethod
-from waretype import WareType
+#Karl Lindgren
+#Last edited: 09-11-2018
 
 ################################################################################
 #ABSTRACT CODE
+
+from abc import ABC, abstractmethod
+from waretype import WareTypeABC
 
 #A certain amount of a given ware. Usually doesn't represent 'real' goods. Rather represents e.g. input, output, or needs.
 class WareAmountABC(ABC):
@@ -26,10 +29,29 @@ class WareAmountABC(ABC):
 #IMPLEMENTATION
 
 class WareAmount(WareAmountABC):
-	pass
+	def weight(self):
+		pass
+	def transferTo(self, other, amount):
+		pass
+	def transferFrom(self, other, amount):
+		pass
 
 ################################################################################
 #TEST CODE
 
+import unittest
+
+class TestWareAmount(unittest.TestCase):
+	def test_attributes(self):
+		t = WareAmount()
+		t.wareType
+		t.amount
+	def weight(self):
+		pass
+	def transferTo(self):
+		pass
+	def transferFrom(self):
+		pass
+
 if __name__ == "__main__":
-	WareAmount()
+	unittest.main(exit=False)

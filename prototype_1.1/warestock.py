@@ -1,13 +1,16 @@
-from abc import ABC, abstractmethod
-from warebatch import WareBatch
+#Karl Lindgren
+#Last edited: 09-11-2018
 
 ################################################################################
 #ABSTRACT CODE
 
+from abc import ABC, abstractmethod
+from warebatch import WareBatch
+
 #Represents a collection of ware batches, an inventory; e.g. market, business, or personal inventory. 
 class WareStockABC(ABC):
 	def __init__(self):	
-		self.batches = dict()
+		self.batches = dict(zip([str()], [WareBatch()]))
 
 	#Updates all batches' perishability stats.
 	@abstractmethod
@@ -26,10 +29,28 @@ class WareStockABC(ABC):
 #IMPLEMENTATION
 
 class WareStock(WareStockABC):
-	pass
+	def updatePerishabilities(self):
+		pass
+	def resetPerishabilities(self):
+		pass
+	def mergeBatches(self):
+		pass
 
 ################################################################################
 #TEST CODE
 
+import unittest
+
+class TestWareStock(unittest.TestCase):
+	def test_attributes(self):
+		t = WareStock()
+		t.batches[str()]
+	def test_updatePerishabilities(self):
+		pass
+	def test_resetPerishabilities(self):
+		pass
+	def test_mergeBatches(self):
+		pass
+
 if __name__ == "__main__":
-	WareStock()
+	unittest.main(exit=False)

@@ -1,22 +1,21 @@
-from abc import ABC, abstractmethod
-from market import Market
-from agriculture import Agriculture
-from businesses import Business
-from population import Population
+#Karl Lindgren
+#Last edited: 09-11-2018
 
 ################################################################################
 #ABSTRACT CODE
 
+from abc import ABC, abstractmethod
+from market import Market
+from agriculture import Agriculture
+from business import Business
+from population import Population
+
 class TownABC(ABC):
 	def __init__(self):
-		self.market = MarketABC()
-		self.agriculture = AgricultureABC()
-		self.businesses = list()
-		self.population = PopulationABC()
-
-	#User interface of town.
-	@abstractmethod
-	def ui(self): pass
+		self.market = Market()
+		self.agriculture = Agriculture()
+		self.businesses = list([Business()])
+		self.population = Population()
 
 ################################################################################
 #IMPLEMENTATION
@@ -27,5 +26,15 @@ class Town(TownABC):
 ################################################################################
 #TEST CODE
 
+import unittest
+
+class TestTown(unittest.TestCase):
+	def test_attributes(self):
+		t = Town()
+		t.market
+		t.agriculture
+		t.businesses[0]
+		t.population
+
 if __name__ == "__main__":
-	Town()
+	unittest.main(exit=False)

@@ -1,17 +1,20 @@
-from abc import ABC, abstractmethod
-from waretype import WareType
-from warestock import WareStock
-from warebatch import WareBatch
+#Karl Lindgren
+#Last edited: 09-11-2018
 
 ################################################################################
 #ABSTRACT CODE
 
+from abc import ABC, abstractmethod
+from warestock import WareStock
+from warebatch import WareBatch
+
 #Represents the central trading hub of a town. Functions as a town inventory where goods are gathered and distributed.
 #Transactions require equal exchange, even for local actors such as population and businesses.
-class MarketABC(WareStockABC, ABC):
+class MarketABC(WareStock, ABC):
 	def __init__(self):
-		self.exchangeOffers = list()
-		self.exchangeDemands = list()
+		super().__init__()
+		self.exchangeOffers = list([WareBatch()])
+		self.exchangeDemands = list([WareBatch()])
 
 	#Returns price of ware in default currency (WareType). Choose other currency by calling: "market.getPriceOf(wareAmount).inCurrency(otherWareType)".
 	@abstractmethod
@@ -40,8 +43,21 @@ class MarketABC(WareStockABC, ABC):
 ################################################################################
 #IMPLEMENTATION
 
+from waretype import WareType
+
 class Market(MarketABC):
-	pass
+	def getPriceOf(self, batch, amount):
+		pass
+	def resetExchange(self):
+		pass
+	def offerToExchange(self, batch, amount):
+		pass
+	def demandFromExchange(self, batch, amount):
+		pass
+	def getExchangeBalance(self):
+		pass
+	def proposeExchange(self):
+		pass
 
 #Represents price. Is used simply as a float but contains data to enable recalculation in another currency.
 class Price(float):
@@ -50,11 +66,31 @@ class Price(float):
 		self.currency = WareType() #The ware that this price if based on. E.g. Copper coin, Silver coin, etc.
 
 	#Returns self. Changes price value according to value relation between old and new currency.
-	def inCurrency(self, wareType): pass
+	def inCurrency(self, wareType):
+		pass
 
 ################################################################################
 #TEST CODE
 
+import unittest
+
+class TestMarket(unittest.TestCase):
+	def test_attributes(self):
+		t = Market()
+		t.exchangeOffers[0]
+		t.exchangeDemands[0]
+	def test_getPriceOf(self):
+		pass
+	def test_resetExchange(self):
+		pass
+	def test_offerToExchange(self):
+		pass
+	def test_demandFromExchange(self):
+		pass
+	def test_getExchangeBalance(self):
+		pass
+	def test_proposeExchange(self):
+		pass
+
 if __name__ == "__main__":
-	m = Market()
-	Price(m)
+	unittest.main(exit=False)

@@ -1,11 +1,14 @@
-from abc import ABC, abstractmethod
-from wareamount import WareAmount
+#Karl Lindgren
+#Last edited: 09-11-2018
 
 ################################################################################
 #ABSTRACT CODE
 
+from abc import ABC, abstractmethod
+from wareamount import WareAmount
+
 #WareBatch represents an amount of wares with the same perishability state.
-class WareBatchABC(WareAmountABC, ABC):
+class WareBatchABC(WareAmount, ABC):
 	def __init__(self):	
 		super().__init__()
 		self.perishStatus = float() #Starts at 1.0 (100%) and is degraded over time.
@@ -32,10 +35,33 @@ class WareBatchABC(WareAmountABC, ABC):
 #IMPLEMENTATION
 
 class WareBatch(WareBatchABC):
-	pass
+	def updatePerishability(self):
+		pass
+	def transferToBatch(self, other, amount):
+		pass
+	def transferFromBatch(self, other, amount):
+		pass
+	def key(self):
+		pass
 
 ################################################################################
 #TEST CODE
 
+import unittest
+
+class TestWareBatch(unittest.TestCase):
+	def test_attributes(self):
+		t = WareBatch()
+		t.perishStatus
+		t.perishTimeLeft
+	def test_updatePerishability(self):
+		pass
+	def test_transferToBatch(self):
+		pass
+	def test_transferFromBatch(self):
+		pass
+	def test_key(self):
+		pass
+
 if __name__ == "__main__":
-	WareBatch()
+	unittest.main(exit=False)

@@ -1,7 +1,10 @@
-from abc import ABC, abstractmethod
+#Karl Lindgren
+#Last edited: 09-11-2018
 
 ################################################################################
 #ABSTRACT CODE
+
+from abc import ABC, abstractmethod
 
 #WareType represents a type of tradable goods. There is exactly one unique instance of every type of Ware.
 #The instances of WareType are loaded from file and kept in a dictionary with name as key.
@@ -22,5 +25,15 @@ class WareType(WareTypeABC):
 ################################################################################
 #TEST CODE
 
+import unittest
+
+class TestWareType(unittest.TestCase):
+	def test_attributes(self):
+		t = WareType()
+		t.key
+		t.weight
+		t.perishStep
+		t.perishTime
+
 if __name__ == "__main__":
-	WareType()
+	unittest.main(exit=False)
