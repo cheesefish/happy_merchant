@@ -1,3 +1,3 @@
-#Happy Merchant
+# Happy Merchant
 
-We're making merchants appy again.
+We're making merchants happy again.
