@@ -24,6 +24,32 @@ We're making merchants happy again.
 
 [Description]  (in imperative, e.g. “change” not “changes / changed”  Fixes #[issue number]
 
+## JavaDoc Standards
+
+### Classes/Interfaces
+
+* [Description of usage or functionality]
+* [Blank row]
+* @author
+* @version 1.0
+
+### Methods
+
+* [Description of the point of the method]
+* [Blank row]
+* @param [Parameter name] [Description of the parameter]
+* @throws [ExceptionType] if [Condition] 
+* (Example: @throws IllegalArgumentException if diameter not in given range)
+
+#### Getter: 
+
+* @return [Parameter name] [Description of the variable in question, eventual side effects]
+* Example: @return the current x-coordinate
+
+#### Setter: 
+
+* @param [Parameter name] [Description of the variable in question. Eventual side effects. Restrictions to the parameter, ex: * Must be greater than 0]
+* Example: @param the x-coordinate to set. Must be greater than 0
 
 ## Test Standards
 
