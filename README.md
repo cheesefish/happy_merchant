@@ -51,3 +51,24 @@ We're making merchants happy again.
 * @param [Parameter name] [Description of the variable in question. Eventual side effects. Restrictions to the parameter, ex: * Must be greater than 0]
 * Example: @param the x-coordinate to set. Must be greater than 0
 
+## Test Standards
+
+### Name
+
+* [ClassName]Tests.java
+
+### Version
+
+* JUnit 4
+
+### Method Names: 
+
+* [unitOfWork_stateUnderTest_expectedBehavior]
+
+* The unit of work can be as small as a single method, a class or as large as multiple classes. It should represent all the things that are to be tested in this test case and are under control.  Source. If the constructor is tested, use: ctor
+
+* The state under test is the test input, for example validCoordinates, or nameIsNull
+
+* expectedBehaviour is self explanatory. For example: throwsException, returnsNode
+
+* Example: ctor_validCoordiantes_setsCoordinates
