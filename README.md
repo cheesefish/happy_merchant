@@ -23,3 +23,26 @@ We're making merchants happy again.
 ### Body
 
 [Description]  (in imperative, e.g. “change” not “changes / changed”  Fixes #[issue number]
+
+
+## Test Standards
+
+### Name
+
+* [ClassName]Tests.java
+
+### Version
+
+* JUnit 4
+
+### Method Names: 
+
+* [unitOfWork_stateUnderTest_expectedBehavior]
+
+* The unit of work can be as small as a single method, a class or as large as multiple classes. It should represent all the things that are to be tested in this test case and are under control.  Source. If the constructor is tested, use: ctor
+
+* The state under test is the test input, for example validCoordinates, or nameIsNull
+
+* expectedBehaviour is self explanatory. For example: throwsException, returnsNode
+
+* Example: ctor_validCoordiantes_setsCoordinates
