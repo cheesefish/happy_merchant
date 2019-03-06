@@ -1,0 +1,9 @@
+{
+  "settlements" : [
+    {
+      "name" : "Town1",
+      "population" : 1000,
+      "area" : 1000
+    }
+  ]
+}
