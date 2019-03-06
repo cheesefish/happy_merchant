@@ -10,7 +10,7 @@ We're making merchants happy again.
 
 * BugFix: Patches a bug in the codebase.
 
-* Documentations: Changes in documentation.
+* Documentation: Changes in documentation.
 
 * Refactor: Code change that does not fix a bug nor adds a new feature.
 
