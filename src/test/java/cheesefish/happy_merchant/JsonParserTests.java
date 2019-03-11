@@ -5,6 +5,15 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+/**
+ * JUnit test cases for JsonParser and related classes
+ * Related classes include:
+ * World.java
+ * Settlement.java
+ *
+ * @author cheesefish
+ * @version 1.0
+ */
 public class JsonParserTests {
 
     @Test

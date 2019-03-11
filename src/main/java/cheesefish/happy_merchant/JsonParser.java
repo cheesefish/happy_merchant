@@ -8,9 +8,22 @@ import java.io.*;
 
 import static javax.json.Json.createReader;
 
-
+/**
+ * Parses Json files to be used in the game
+ * Currently only parses settlements into world object.
+ *
+ * @author cheesefish
+ * @version 1.0
+ */
 public class JsonParser {
 
+    /**
+     * Reads settlement list in world.json
+     * Creates a World object.
+     *
+     * @param path to world.json file
+     * @return world object parsed from world.json
+     */
     public static World parseJson(String path) {
 
         File inputFile = new File(path);
