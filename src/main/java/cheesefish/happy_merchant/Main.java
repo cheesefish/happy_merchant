@@ -18,15 +18,7 @@ import cheesefish.happy_merchant.graphics.*;
 public class Main {
 
 	public static void main(String[] args) {
-		Graphics.initGraphics();
-		Window window = new Window();
-		while(window.isWindowOpen()) {
-			window.clearWindow(); //clear window to bg color
-			glfwPollEvents(); //poll input events
-			/* DO LOOPY THINGS */
-		}
-		window.terminateWindow();
-		Graphics.terminateGraphics();
+		new MainMenuState().run();
 	}
 
 }
