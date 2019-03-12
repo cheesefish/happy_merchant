@@ -4,6 +4,7 @@ import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
+
 import java.nio.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
@@ -29,6 +30,7 @@ public class Window {
 		initializeGLFW();
 		configureWindow();
 		this.windowHandle = createWindow(640, 480, "Happy Merchant the Game!");
+		setupKeyCallback(GLFW_KEY_ESCAPE, GLFW_RELEASE);
 		centerWindow();
 		showWindow();
 	}
@@ -74,6 +76,16 @@ public class Window {
 		if ( windowHandle == NULL )
 			throw new RuntimeException("Failed to create the GLFW window");
 		return windowHandle;
+	}
+
+	/**
+	 * Setup so that window closes on key action.
+	 */
+	private void setupKeyCallback(int callbackKey, int callbackAction) {
+		glfwSetKeyCallback(this.windowHandle, (window, key, scancode, action, mods) -> {
+			if ( key == callbackKey && action == callbackAction )
+				glfwSetWindowShouldClose(this.windowHandle, true);
+		});
 	}
 
 	/**
