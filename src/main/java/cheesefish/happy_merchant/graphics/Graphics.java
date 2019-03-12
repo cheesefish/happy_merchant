@@ -14,7 +14,6 @@ import static org.lwjgl.opengl.GL32.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-<<<<<<< HEAD
 /**
  * Contains static graphics functions. Everything to do with rendering.
  *
