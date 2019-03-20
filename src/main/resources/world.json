@@ -1,15 +1,119 @@
 {
-  "settlements" : [
+  "itemTypes" : [
     {
-      "name" : "Town1",
-      "population" : 1000,
-      "area" : 1000
+      "name" : "apples",
+      "category" : "food",
+      "volume" : 1,
+      "weight" : 1
+    },
+    {
+      "name" : "grain",
+      "category" : "food",
+      "volume" : 2,
+      "weight" : 2
     }
   ],
-
-  "wares" : [
+  "settlements" : [
     {
-      "name" : "apples"
+      "xPosition" : 1.1,
+      "yPosition" : 1.1,
+      "mapID" : 1,
+      "neighbors" : [
+        2
+      ],
+      "name" : "town1",
+      "market" : {
+        "supplies" : [
+          {
+            "name" : "apples",
+            "amount" : 1000
+          }
+        ]
+      },
+      "populations" : [
+        {
+          "name" : "peasantry",
+          "number" : 1000,
+          "needs" : [
+            {
+              "name" : "apples",
+              "amount" : 500
+            },
+            {
+              "name" : "grain",
+              "amount" : 500
+            }
+          ],
+          "production" : [
+            {
+              "name" : "apples",
+              "amount" : 750
+            }
+          ],
+          "inventory" : [
+
+            {
+              "name" : "apples",
+              "amount" : 500
+            },
+            {
+              "name" : "grain",
+              "amount" : 500
+            }
+          ]
+        }
+      ],
+      "area" : 1000
+    },
+    {
+      "xPosition" : 2.2,
+      "yPosition" : 2.2,
+      "mapID" : 2,
+      "neighbors" : [
+        1
+      ],
+      "name" : "town2",
+      "market" : {
+        "supplies" : [
+          {
+            "name" : "apples",
+            "amount" : 1000
+          }
+        ]
+      },
+      "populations" : [
+        {
+          "name" : "peasantry",
+          "number" : 1000,
+          "needs" : [
+            {
+              "name" : "apples",
+              "amount" : 500
+            },
+            {
+              "name" : "grain",
+              "amount" : 500
+            }
+          ],
+          "production" : [
+            {
+              "name" : "wheat",
+              "amount" : 750
+            }
+          ],
+          "inventory" : [
+            {
+              "name" : "apples",
+              "amount" : 500
+            },
+            {
+              "name" : "grain",
+              "amount" : 500
+            }
+          ]
+        }
+      ],
+      "area" : 1000
     }
   ]
 }

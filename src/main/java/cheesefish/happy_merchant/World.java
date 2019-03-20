@@ -8,11 +8,12 @@ import java.util.ArrayList;
  * At this point only features settlements
  *
  * @author cheesefish
- * @version 1.0
+ * @version 1.1
  */
 public class World {
 
-    private ArrayList<Settlement> settlements;
+    public ArrayList<ItemType> itemTypes;
+    public ArrayList<Settlement> settlements;
 
     /**
      * Basis of world object to which things are added in the JsonParser
@@ -48,5 +49,17 @@ public class World {
      */
     public int settlementAmount() {
         return settlements.size();
+    }
+
+    public void setItemTypes(ArrayList<ItemType> itemTypes) {
+        this.itemTypes = itemTypes;
+    }
+
+    public ArrayList<ItemType> getItemTypes() {
+        return itemTypes;
+    }
+
+    public void addItemType(ItemType itemType) {
+        this.itemTypes.add(itemType);
     }
 }
