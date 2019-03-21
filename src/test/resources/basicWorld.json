@@ -97,7 +97,7 @@
           ],
           "production" : [
             {
-              "name" : "wheat",
+              "name" : "grain",
               "amount" : 750
             }
           ],
