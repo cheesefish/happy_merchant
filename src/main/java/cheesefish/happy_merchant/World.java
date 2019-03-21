@@ -51,14 +51,24 @@ public class World {
         return settlements.size();
     }
 
+    /**
+     * @param itemTypes to be available in the world
+     *                  Replaces current list
+     */
     public void setItemTypes(ArrayList<ItemType> itemTypes) {
         this.itemTypes = itemTypes;
     }
 
+    /**
+     * @return list of all available item types in the world
+     */
     public ArrayList<ItemType> getItemTypes() {
         return itemTypes;
     }
 
+    /**
+     * @param itemType to be added to the world
+     */
     public void addItemType(ItemType itemType) {
         this.itemTypes.add(itemType);
     }
