@@ -1,6 +1,7 @@
 
 package cheesefish.happy_merchant;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class Settlement extends MapVertex {
     public String name;
     public Market market;
-    public ArrayList<Population> population;
+    public ArrayList<Population> populations;
     public int area;
 
     /**
@@ -23,18 +24,18 @@ public class Settlement extends MapVertex {
      * @param mapID unique to settlement, used in neighbors array
      * @param neighbors array of MapIDs of neighbors
      * @param market housing the goods currently for sale
-     * @param population list of populations in settlement
+     * @param populations list of populations in settlement
      * @param area available to exploitation
      */
     public Settlement(double xPosition, double yPosition, int mapID, ArrayList<Integer> neighbors,
-                      String name, Market market, ArrayList<Population> population, int area) {
+                      String name, Market market, ArrayList<Population> populations, int area) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.mapID = mapID;
         this.neighbors = neighbors;
         this.name = name;
         this.market = market;
-        this.population = population;
+        this.populations = populations;
         this.area = area;
     }
 
@@ -92,6 +93,35 @@ public class Settlement extends MapVertex {
      */
     public String getName() {
         return name;
+    }
+
+    /**
+     * @param market to be set
+     *               Replaces old market
+     */
+    public void setMarket(Market market) {
+        this.market = market;
+    }
+
+    /**
+     * @return market of the settlement
+     */
+    public Market getMarket() {
+        return market;
+    }
+
+    /**
+     * @param populations list ot replace current list of populations
+     */
+    public void setPopulations(ArrayList<Population> populations) {
+        this.populations = populations;
+    }
+
+    /**
+     * @return list of all populatiosn of a settlement
+     */
+    public ArrayList<Population> getPopulations() {
+        return populations;
     }
 }
 
