@@ -1,8 +1,6 @@
 
 package cheesefish.happy_merchant;
 
-import org.lwjgl.system.CallbackI;
-
 import java.util.ArrayList;
 
 /**
