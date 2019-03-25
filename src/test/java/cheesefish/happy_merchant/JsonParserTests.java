@@ -89,7 +89,7 @@ public class JsonParserTests {
             }
         }
 
-        //Fetch needs of all populations
+        //Fetch needs, productions and inventories of all populations
         ArrayList<ItemBatch> needs = new ArrayList<>();
         ArrayList<ItemBatch> productions = new ArrayList<>();
         ArrayList<ItemBatch> inventories = new ArrayList<>();
