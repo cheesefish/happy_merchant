@@ -78,6 +78,10 @@
           {
             "name" : "apples",
             "amount" : 1000
+          },
+          {
+            "name" : "grain",
+            "amount" : 2000
           }
         ]
       },
@@ -97,7 +101,7 @@
           ],
           "production" : [
             {
-              "name" : "wheat",
+              "name" : "grain",
               "amount" : 750
             }
           ],
