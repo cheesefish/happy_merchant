@@ -14,138 +14,117 @@ import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
 /**
- * Window object.
+ * Static window class. Creates a window and rendering context (GLFW).
  *
  * @author Klaxel
- * @version 1.0
+ * @version 1.1
  */
 public class Window {
 
-	public final long windowHandle; //id
+	private static long handle;
+	private static int width, height;
 
 	/**
-	 * Constructor. Creates window, saves handle.
+	 * Private constructor. Static class, no instantiation.
 	 */
-	public Window() {
-		initializeGLFW();
-		configureWindow();
-		this.windowHandle = createWindow(640, 480, "Happy Merchant the Game!");
-		setupKeyCallback(GLFW_KEY_ESCAPE, GLFW_RELEASE);
-		centerWindow();
-		showWindow();
-	}
+	private Window() {}
 
 	/**
-	 * Initializes, creates, and shows window.
-	 *
-	 * @return Returns window handle.
+	 * Creates window and configures window/glfw settings.
 	 */
-	private void initializeGLFW() {
-		// Setup an error callback. The default implementation
-		// will print the error message in System.err.
+	public static void create() {
+		//Setup GLFW to print errors to System.err
 		GLFWErrorCallback.createPrint(System.err).set();
 
-		// Initialize GLFW. Most GLFW functions will not work before doing this.
-		if ( !glfwInit() )
+		//Initializes GLFW
+		if(!glfwInit()) {
 			throw new IllegalStateException("Unable to initialize GLFW");
-	}
+		}
 
-	/**
-	 * Set window properties.
-	 */
-	private void configureWindow() {
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+		//Preconfigure OpenGL version.
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); //for MacOSX
+
+    	//Preconfigure window properties
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
 		glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
 		glfwWindowHint(GLFW_FOCUSED, GLFW_FALSE);
 		glfwWindowHint(GLFW_AUTO_ICONIFY, GLFW_TRUE);
 		glfwWindowHint(GLFW_FLOATING, GLFW_FALSE);
 		glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
-	}
 
-	/**
-	 * Creates window with given properties.
-	 *
-	 * @param width Screen width in pixels
-	 * @param height Screen height in pixels
-	 * @param title Screen title
-	 * @return Returns window handle (id)
-	 */
-	private long createWindow(int width, int height, String title) {
-		long windowHandle = glfwCreateWindow(width, height, title, NULL, NULL);
-		if ( windowHandle == NULL )
+		//Create window
+		String title = "Happy Merchant the Game!";
+		handle = glfwCreateWindow(width = 640, height = 480, title, NULL, NULL);
+		if(handle == NULL) {
 			throw new RuntimeException("Failed to create the GLFW window");
-		return windowHandle;
-	}
-
-	/**
-	 * Setup so that window closes on key action.
-	 */
-	private void setupKeyCallback(int callbackKey, int callbackAction) {
-		glfwSetKeyCallback(this.windowHandle, (window, key, scancode, action, mods) -> {
-			if ( key == callbackKey && action == callbackAction )
-				glfwSetWindowShouldClose(this.windowHandle, true);
-		});
-	}
-
-	/**
-	 * Centers window on the screen.
-	 */
-	public void centerWindow() {
-		// Get the thread stack and push a new frame
-		try ( MemoryStack stack = stackPush() ) {
-			IntBuffer pWidth = stack.mallocInt(1); // int*
-			IntBuffer pHeight = stack.mallocInt(1); // int*
-
-			// Get the window size passed to glfwCreateWindow
-			glfwGetWindowSize(this.windowHandle, pWidth, pHeight);
-
-			// Get the resolution of the primary monitor
-			GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-			// Center the window
-			glfwSetWindowPos(
-				this.windowHandle,
-				(vidmode.width() - pWidth.get(0)) / 2,
-				(vidmode.height() - pHeight.get(0)) / 2
-			);
 		}
+
+		//Center window
+		GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+		glfwSetWindowPos(
+			handle,
+			(vidmode.width() - width) / 2,
+			(vidmode.height() - height) / 2
+		);
+
+		//Final setup
+		glfwMakeContextCurrent(handle);
+		glfwSwapInterval(1); //vsync
+		glfwShowWindow(handle);
 	}
 
 	/**
-	 * Makes some final setup and shows the window.
+	 * Destroys window, terminates glfw, frees error callbacks.
 	 */
-	private void showWindow() {
-		glfwMakeContextCurrent(this.windowHandle);
-		glfwSwapInterval(1); // Enable v-sync
-		glfwShowWindow(this.windowHandle);
-		GL.createCapabilities(); //Enables interoperation w/ GLFW's OpenGL context
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f); //Set bg color
-	}
-
-	/**
-	 * Destroys window.
-	 */
-	public void terminateWindow() {
-		glfwFreeCallbacks(this.windowHandle);
-		glfwDestroyWindow(this.windowHandle);
+	public static void destroy() {
+		glfwFreeCallbacks(Window.handle);
+		glfwDestroyWindow(handle);
 		glfwTerminate();
 		glfwSetErrorCallback(null).free();
 	}
 
 	/**
-	 * Clears window to background color, preparing it for fresh rendering.
+	 * Updates screen, swapping the front and back color buffers.
 	 */
-	public void clear() {
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
-		glfwSwapBuffers(this.windowHandle); // swap the color buffers
+	public static void update() {
+		glfwSwapBuffers(handle);
+		glfwPollEvents();
 	}
 
 	/**
 	 * @return True while window isn't set to close.
 	 */
-	public boolean shouldNotClose() {
-		return !glfwWindowShouldClose(this.windowHandle);
+	public static boolean shouldNotClose() {
+		return !glfwWindowShouldClose(handle);
+	}
+
+	/**
+	 * @return Returns window handle (GLFW-window id).
+	 */
+	public static long getHandle() {
+		return handle;
+	}
+
+	/**
+	 * @return Returns window width.
+	 */
+	public static int getWidth() {
+		return width;
+	}
+
+	/**
+	 * @return Returns window height.
+	 */
+	public static int getHeight() {
+		return height;
+	}
+
+	public static boolean isKey(int key, int mode) {
+		return glfwGetKey(handle, key) == mode;
 	}
 
 }

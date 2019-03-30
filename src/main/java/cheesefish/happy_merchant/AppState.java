@@ -1,37 +1,53 @@
 package cheesefish.happy_merchant;
 
-import java.util.*;
-import cheesefish.happy_merchant.graphics.*;
-
-import static org.lwjgl.glfw.GLFW.*;
+import java.util.Stack;
+import cheesefish.happy_merchant.graphics.Window;
+import cheesefish.happy_merchant.graphics.Graphics;
 
 /**
  * Abstract application state. Handles the window and game loop
  *
  * @author Klaxel
- * @version 1.0
+ * @version 1.1
  */
 public abstract class AppState {
 
-	protected Window window;
-	protected Stack<AppState> appStateStack;
+	protected static Stack<AppState> appStateStack = new Stack<AppState>();
+	private static boolean isRunning = false;
 
 	protected boolean shouldChangeState = false;
 	protected boolean shouldInitialize = true;
 	protected boolean shouldTerminateAutomatically = true;
 
 	/**
-	 * Run state as new app. Creates new window and new state-stack.
+	 * Run app with this state as root. Creates window and initializes gl.
 	 * Manages app level loop by going through the state stack until empty.
+	 * Cleans up when done. Will return immediately if called a second time
+	 * if first call hasn't returned yet (i.e. you can only run one app at a
+	 * time).
 	 */
 	public void run() {
-		this.appStateStack = new Stack<AppState>();
-		this.appStateStack.push(this);
-		this.window = new Window();
-		while(!this.appStateStack.isEmpty()) {
-			this.appStateStack.pop().loop();
+		if(this.isRunning) {
+			return;
+		} else {
+			this.isRunning = true;
 		}
-		this.window.terminateWindow();
+
+		//create/init
+		Window.create();
+		Graphics.initialize();
+
+		//app-level loop
+		this.appStateStack.push(this);
+		while(!this.appStateStack.isEmpty()) {
+			this.appStateStack.pop().loop(); //state-level loop
+		}
+
+		//clean up
+		Graphics.terminate();
+		Window.destroy();
+
+		this.isRunning = false;
 	}
 
 	/**
@@ -45,23 +61,23 @@ public abstract class AppState {
 	 * @see #terminate()
 	 */
 	private void loop() {
-		if(this.window.shouldNotClose()) {
+		if(Window.shouldNotClose()) {
 			if(this.shouldInitialize) {
 				initialize();
 				this.shouldInitialize = false;
 			}
 			preloop();
-			while(this.window.shouldNotClose() && !this.shouldChangeState) {
-				glfwPollEvents(); //poll input events
+			while(Window.shouldNotClose() && !this.shouldChangeState) {
+				Graphics.clear(); //clear front buffer
+				Window.update(); //swap front and back buffers (show back one)
 				update();
-				this.window.clear(); //clear window to bg color
-				render();
+				render(); //render on back buffer
 			}
 			postloop();
 		}
 		if(isTerminateConditionsMet()) {
 			terminate();
-			this.shouldInitialize = true; //must be reinitialized if terminated
+			this.shouldInitialize = true;
 		}
 		this.shouldChangeState = false;
 	}
@@ -70,11 +86,9 @@ public abstract class AppState {
 	 * Leaves this state and enters the other state.
 	 */
 	protected void enterState(AppState otherAppState) {
-		otherAppState.appStateStack = this.appStateStack;
-		otherAppState.window = this.window;
 		this.appStateStack.push(this);
 		this.appStateStack.push(otherAppState);
-		this.shouldChangeState = true;
+		exitState();
 	}
 
 	/**
@@ -97,7 +111,7 @@ public abstract class AppState {
 	 * window is closing.
 	 */
 	private boolean isTerminateConditionsMet() {
-		if(this.window.shouldNotClose()) {
+		if(Window.shouldNotClose()) {
 			boolean isStateNotInStack = this.appStateStack.search(this) == -1;
 			return isStateNotInStack && this.shouldTerminateAutomatically;
 		} else {
