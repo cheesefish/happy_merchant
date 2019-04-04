@@ -17,7 +17,7 @@ import static javax.json.Json.createReader;
  * Currently only parses items and settlements into world object.
  *
  * @author cheesefish
- * @version 2.1
+ * @version 2.2
  */
 public class JsonParser {
 
@@ -82,29 +82,7 @@ public class JsonParser {
 
             JsonObject marketObject = current.getJsonObject("market");
             JsonArray suppliesArray = marketObject.getJsonArray("supplies");
-            ArrayList<ItemBatch> supplies = new ArrayList<>();
-
-            for(int j = 0; j < suppliesArray.size(); j++) {
-
-                JsonObject supplyObject = suppliesArray.getJsonObject(j);
-                String itemName = supplyObject.getString("name");
-                int itemAmount = supplyObject.getInt("amount");
-
-                String itemCategory = "";
-                int itemVolume = 0;
-                int itemWeight = 0;
-
-                for(ItemType itemType : worldItemTypes) {
-                    if(itemType.getName() == itemName) {
-                        itemCategory = itemType.getCategory();
-                        itemVolume = itemType.getVolume();
-                        itemWeight = itemType.getWeight();
-                    }
-                }
-
-                ItemBatch supply = new ItemBatch(itemName, itemCategory, itemVolume, itemWeight, itemAmount);
-                supplies.add(supply);
-            }
+            ArrayList<ItemBatch> supplies = pairItemTypes(suppliesArray, worldItemTypes);
 
             Market market = new Market(supplies);
 
@@ -116,73 +94,13 @@ public class JsonParser {
                 int populationNumber = populationObject.getInt("number");
 
                 JsonArray needsArray = populationObject.getJsonArray("needs");
-                ArrayList<ItemBatch> needs = new ArrayList<>();
-                for (int k = 0; k < needsArray.size(); k++) {
-                    JsonObject needObject = needsArray.getJsonObject(k);
-                    String itemName = needObject.getString("name");
-                    int itemAmount = needObject.getInt("amount");
-
-                    String itemCategory = "";
-                    int itemVolume = 0;
-                    int itemWeight = 0;
-
-                    for(ItemType itemType : worldItemTypes) {
-                        if(itemType.getName() == itemName) {
-                            itemCategory = itemType.getCategory();
-                            itemVolume = itemType.getVolume();
-                            itemWeight = itemType.getWeight();
-                        }
-                    }
-
-                    ItemBatch need = new ItemBatch(itemName, itemCategory, itemVolume, itemWeight, itemAmount);
-                    needs.add(need);
-                }
+                ArrayList<ItemBatch> needs = pairItemTypes(needsArray, worldItemTypes);
 
                 JsonArray productionsArray = populationObject.getJsonArray("production");
-                ArrayList<ItemBatch> productions = new ArrayList<>();
-                for (int k = 0; k < productionsArray.size(); k++) {
-                    JsonObject productionObject = productionsArray.getJsonObject(k);
-                    String itemName = productionObject.getString("name");
-                    int itemAmount = productionObject.getInt("amount");
-
-                    String itemCategory = "";
-                    int itemVolume = 0;
-                    int itemWeight = 0;
-
-                    for(ItemType itemType : worldItemTypes) {
-                        if(itemType.getName() == itemName) {
-                            itemCategory = itemType.getCategory();
-                            itemVolume = itemType.getVolume();
-                            itemWeight = itemType.getWeight();
-                        }
-                    }
-
-                    ItemBatch production = new ItemBatch(itemName, itemCategory, itemVolume, itemWeight, itemAmount);
-                    productions.add(production);
-                }
+                ArrayList<ItemBatch> productions = pairItemTypes(productionsArray, worldItemTypes);
 
                 JsonArray inventoriesArray = populationObject.getJsonArray("inventory");
-                ArrayList<ItemBatch> inventories = new ArrayList<>();
-                for (int k = 0; k < inventoriesArray.size(); k++) {
-                    JsonObject inventoryObject = inventoriesArray.getJsonObject(k);
-                    String itemName = inventoryObject.getString("name");
-                    int itemAmount = inventoryObject.getInt("amount");
-
-                    String itemCategory = "";
-                    int itemVolume = 0;
-                    int itemWeight = 0;
-
-                    for(ItemType itemType : worldItemTypes) {
-                        if(itemType.getName() == itemName) {
-                            itemCategory = itemType.getCategory();
-                            itemVolume = itemType.getVolume();
-                            itemWeight = itemType.getWeight();
-                        }
-                    }
-
-                    ItemBatch inventory = new ItemBatch(itemName, itemCategory, itemVolume, itemWeight, itemAmount);
-                    inventories.add(inventory);
-                }
+                ArrayList<ItemBatch> inventories = pairItemTypes(inventoriesArray, worldItemTypes);
 
                 Population population = new Population(populationName, populationNumber, needs, productions, inventories);
                 populations.add(population);
@@ -196,5 +114,43 @@ public class JsonParser {
 
         return world;
 
+    }
+
+    /**
+     * Reads the JsonArrays fetched in parseWorld and checks the names of the items
+     * and the adds to weight, volume and category of all the items.
+     * Thus making sure that all items of the same type have the same
+     * weight, volume and category.
+     *
+     * @param array of jsonobjects which are the names and amounts of items.
+     * @param worldItemTypes List of available item types in the world
+     * @return an arraylist of itembatches
+     */
+    public static ArrayList<ItemBatch> pairItemTypes(JsonArray array, ArrayList<ItemType> worldItemTypes) {
+        ArrayList<ItemBatch> itemBatches = new ArrayList<>();
+
+        for(int j = 0; j < array.size(); j++) {
+
+            JsonObject object = array.getJsonObject(j);
+            String itemName = object.getString("name");
+            int itemAmount = object.getInt("amount");
+
+            String itemCategory = "";
+            int itemVolume = 0;
+            int itemWeight = 0;
+
+            for(ItemType itemType : worldItemTypes) {
+                if(itemType.getName() == itemName) {
+                    itemCategory = itemType.getCategory();
+                    itemVolume = itemType.getVolume();
+                    itemWeight = itemType.getWeight();
+                }
+            }
+
+            ItemBatch itemBatch = new ItemBatch(itemName, itemCategory, itemVolume, itemWeight, itemAmount);
+            itemBatches.add(itemBatch);
+        }
+
+        return itemBatches;
     }
 }
