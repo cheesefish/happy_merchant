@@ -1,55 +1,79 @@
 extends Node
 
-var difference
+const market_margin = 0.1
 
 func _ready():
 	$Player/Inventory.connect("item_clicked", self, "on_Player_Inventory_item_selected")
 	$Market/Inventory.connect("item_clicked", self, "on_Market_Inventory_item_selected")
 
 func on_Player_Inventory_item_selected(item: Item):
-	var origin = $Player/Inventory
-	var destination = $Market/Inventory
-	set_diff_and_transfer_item(item, origin, destination, 1)
+	set_diff_and_transfer_item(item, $Player/Inventory, $Market/Inventory, 1)
 
 func on_Market_Inventory_item_selected(item: Item):
-	var origin = $Market/Inventory
-	var destination = $Player/Inventory
-	set_diff_and_transfer_item(item, origin, destination, -1)
+	set_diff_and_transfer_item(item, $Market/Inventory, $Player/Inventory, -1)
 
-func set_diff_and_transfer_item(item, origin, destination, factor):
+func set_diff_and_transfer_item(item, origin, destination, balance_factor):
+	var difference
 	if Input.is_key_pressed(KEY_SHIFT):
 		difference = 100
 	elif Input.is_key_pressed(KEY_CONTROL):
 		difference = 10
 	else:
 		difference = 1
-	transfer_item(item, origin, destination, factor)
+	transfer_item(item, origin, destination, balance_factor, difference)
 
-func transfer_item(item: Item, origin: Inventory, destination: Inventory, factor):
-	var item_name = item.get_name()
-	var amount_after = item.get_amount() - difference
+func transfer_item(item, origin, destination, balance_factor, difference):
+	var amount_before = item.get_amount()
+	if amount_before == 0: return
 	
-	if amount_after > 0:
+	var amount_after = amount_before - difference
+	if amount_after <= 0:
+		if item.true_amount == 0:
+			origin.items.erase(item.get_name())
+			item.delete()
+		else:
+			item.set_amount(0)
+		difference = amount_before
+	else:
 		item.set_amount(amount_after)
-	elif amount_after < 0:
-		difference += amount_after
-		transfer_item(item, origin, destination, factor)
-		return #important to return here!
-	else:
-		origin.remove_item(item_name)
 	
-	if destination.has_item(item_name):
-		destination.add_to_item_amount(item_name, difference)
+	var item_name = item.get_name()
+	if destination.items.has(item_name):
+		item = destination.items[item_name]
+		item.set_amount(item.get_amount() + difference)
 	else:
-		destination.add_item(item_name, difference)
+		item = destination.add_item(item_name, difference)
+		item.true_amount = 0
 	
-	var value = item.get_value()
-	var balance_difference = value * difference * factor
-	var label = $Center/BalanceValue
-	var balance_after = float(label.text) + balance_difference
-	label.text = str(balance_after)
+	var market_value = item.get_value()# * (1 - balance_factor * market_margin)
+	var balance_difference = market_value * difference * balance_factor
+	var balance_after = float($Center/BalanceValue.text) + balance_difference
+	$Center/BalanceValue.text = str(balance_after)
+	$Center/ExchangeButton.disabled = balance_after < 0
 
-func on_TradeResetButton_pressed():
-	$Market/Inventory.reset_items()
-	$Player/Inventory.reset_items()
+func _on_ResetButton_pressed():
+	var items_for_deletion = {}
+	for item in $Market/Inventory.items.values():
+		if item.true_amount == 0:
+			items_for_deletion[item.get_name()] = [$Market/Inventory, item]
+		else:
+			item.set_amount(item.true_amount)
+	for item in $Player/Inventory.items.values():
+		if item.true_amount == 0:
+			items_for_deletion[item.get_name()] = [$Player/Inventory, item]
+		else:
+			item.set_amount(item.true_amount)
+	for elem in items_for_deletion.values():
+		elem[0].items.erase(elem[1].get_name())
+		elem[1].delete()
 	$Center/BalanceValue.text = "0"
+
+func _on_ExchangeButton_pressed():
+	if not $Center/ExchangeButton.disabled:
+		for item in $Market/Inventory.items.values():
+			item.true_amount = item.get_amount()
+		for item in $Player/Inventory.items.values():
+			item.true_amount = item.get_amount()
+		_on_ResetButton_pressed()
+		$Center/ExchangeButton.disabled = true
+		

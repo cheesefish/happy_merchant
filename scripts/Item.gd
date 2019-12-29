@@ -1,4 +1,4 @@
-class_name Item extends Control
+class_name Item extends Object
 
 var parent
 var grid
@@ -13,7 +13,9 @@ var overlay
 var hidden_overlay_theme
 var visible_overlay_theme
 
-func init(parent, grid: Control, name, amount):
+var true_amount
+
+func init(parent, grid: Control, name, amount) -> Item:
 	var tex_path = "res://items/icons/" + String(name).to_lower() + "_64.png"
 	var weight = 0.0
 	var value = 0.1
@@ -58,6 +60,9 @@ func init(parent, grid: Control, name, amount):
 	overlay.margin_bottom = 0
 	overlay.connect("gui_input", self, "on_gui_input")
 	overlay.theme = hidden_overlay_theme
+	
+	true_amount = amount
+	return self
 
 func delete():
 	grid.remove_child(icon)

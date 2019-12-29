@@ -84,6 +84,7 @@ align = 2
 margin_top = 410.0
 margin_right = 161.0
 margin_bottom = 452.0
+disabled = true
 text = "Exchange"
 
 [node name="ResetButton" type="Button" parent="TabContainer/Trade/Center"]
@@ -160,3 +161,5 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Exit"
 script = ExtResource( 8 )
+[connection signal="pressed" from="TabContainer/Trade/Center/ExchangeButton" to="TabContainer/Trade" method="_on_ExchangeButton_pressed"]
+[connection signal="pressed" from="TabContainer/Trade/Center/ResetButton" to="TabContainer/Trade" method="_on_ResetButton_pressed"]

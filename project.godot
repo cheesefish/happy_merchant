@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/Inventory.gd"
 }, {
-"base": "Control",
+"base": "Object",
 "class": "Item",
 "language": "GDScript",
 "path": "res://scripts/Item.gd"

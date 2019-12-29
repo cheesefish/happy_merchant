@@ -6,6 +6,7 @@ var grid_container
 var top_labels = []
 
 var items = {}
+var items_backup = {}
 
 signal item_clicked
 
@@ -70,21 +71,7 @@ func _init():
 func on_item_clicked(item: Item):
 	emit_signal("item_clicked", item)
 
-func get_item(item_name: String) -> Item:
-	return items[item_name]
-
-func has_item(item_name: String) -> bool:
-	return items.has(item_name)
-
 func add_item(item_name: String, amount: int):
-	var item = Item.new()
-	item.init(self, grid_container, item_name, amount)
+	var item = Item.new().init(self, grid_container, item_name, amount)
 	items[item_name] = item
-
-func remove_item(item_name: String):
-	items[item_name].delete()
-	items.erase(item_name)
-
-func add_to_item_amount(item_name: String, amount_to_add: int):
-	var item = items[item_name]
-	item.set_amount( item.get_amount() + amount_to_add )
+	return item
