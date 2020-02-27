@@ -6,10 +6,10 @@ func _ready():
 	$Player/Inventory.connect("item_clicked", self, "on_Player_Inventory_item_selected")
 	$Market/Inventory.connect("item_clicked", self, "on_Market_Inventory_item_selected")
 
-func on_Player_Inventory_item_selected(item: Item):
+func on_Player_Inventory_item_selected(item: InventoryItem):
 	set_diff_and_transfer_item(item, $Player/Inventory, $Market/Inventory, 1)
 
-func on_Market_Inventory_item_selected(item: Item):
+func on_Market_Inventory_item_selected(item: InventoryItem):
 	set_diff_and_transfer_item(item, $Market/Inventory, $Player/Inventory, -1)
 
 func set_diff_and_transfer_item(item, origin, destination, balance_factor):

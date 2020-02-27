@@ -68,10 +68,10 @@ func _init():
 	
 	grid_container.columns = top_labels.size()
 
-func on_item_clicked(item: Item):
+func on_item_clicked(item: InventoryItem):
 	emit_signal("item_clicked", item)
 
 func add_item(item_name: String, amount: int):
-	var item = Item.new().init(self, grid_container, item_name, amount)
+	var item = InventoryItem.new().init(self, grid_container, item_name, amount)
 	items[item_name] = item
 	return item

@@ -15,13 +15,13 @@ _global_script_classes=[ {
 "path": "res://scripts/Inventory.gd"
 }, {
 "base": "Object",
-"class": "Item",
+"class": "InventoryItem",
 "language": "GDScript",
-"path": "res://scripts/Item.gd"
+"path": "res://scripts/InventoryItem.gd"
 } ]
 _global_script_class_icons={
 "Inventory": "",
-"Item": ""
+"InventoryItem": ""
 }
 
 [application]
