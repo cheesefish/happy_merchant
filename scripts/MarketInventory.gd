@@ -1,5 +1,6 @@
 extends Inventory
 
+# Market inventory constructor.
 func _init():
 	add_item("Gold coin", 11)
 	add_item("Silver coin", 220)

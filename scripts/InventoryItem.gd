@@ -1,19 +1,21 @@
 class_name InventoryItem extends Object
 
-var parent
-var grid
+var parent #the inventory this item belings to
+var grid #the grid container in which the item is displayed
 
+# Displayed item info:
 var icon
 var name_label
 var weight_label
 var value_label
 var amount_label
-var overlay
 
-var hidden_overlay_theme
-var visible_overlay_theme
+# Overlay data. Takes input and 
+var overlay #takes player input
+var hidden_overlay_theme #theme/color when item isn't clicked
+var visible_overlay_theme #theme/color when item is clicked (highlighted)
 
-var true_amount
+var true_amount #used for resetting item transfers
 
 func init(parent, grid: Control, name, amount) -> InventoryItem:
 	var tex_path = "res://items/icons/" + String(name).to_lower() + "_64.png"
