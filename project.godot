@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Circle",
+"language": "GDScript",
+"path": "res://scripts/world/map/Circle.gd"
+}, {
 "base": "Control",
 "class": "Inventory",
 "language": "GDScript",
@@ -18,10 +23,41 @@ _global_script_classes=[ {
 "class": "InventoryItem",
 "language": "GDScript",
 "path": "res://scripts/InventoryItem.gd"
+}, {
+"base": "Node2D",
+"class": "LineSegment",
+"language": "GDScript",
+"path": "res://scripts/world/map/LineSegment.gd"
+}, {
+"base": "Node",
+"class": "WorldClass",
+"language": "GDScript",
+"path": "res://scripts/world/World.gd"
+}, {
+"base": "Node",
+"class": "WorldEdge",
+"language": "GDScript",
+"path": "res://scripts/world/WorldEdge.gd"
+}, {
+"base": "Node",
+"class": "WorldNode",
+"language": "GDScript",
+"path": "res://scripts/world/WorldNode.gd"
+}, {
+"base": "Node2D",
+"class": "WorldNodeMarker",
+"language": "GDScript",
+"path": "res://scripts/world/map/WorldNodeMarker.gd"
 } ]
 _global_script_class_icons={
+"Circle": "",
 "Inventory": "",
-"InventoryItem": ""
+"InventoryItem": "",
+"LineSegment": "",
+"WorldClass": "",
+"WorldEdge": "",
+"WorldNode": "",
+"WorldNodeMarker": ""
 }
 
 [application]
@@ -34,4 +70,3 @@ config/icon="res://icon.png"
 
 window/size/width=1600
 window/size/height=900
-window/size/fullscreen=true

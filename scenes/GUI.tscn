@@ -1,13 +1,16 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://themes/GUI.theme" type="Theme" id=1]
 [ext_resource path="res://scripts/Trade.gd" type="Script" id=2]
-[ext_resource path="res://scripts/MarketInventory.gd" type="Script" id=3]
-[ext_resource path="res://scripts/PlayerInventory.gd" type="Script" id=4]
+[ext_resource path="res://scripts/temp/MarketInventory.gd" type="Script" id=3]
+[ext_resource path="res://scripts/temp/PlayerInventory.gd" type="Script" id=4]
 [ext_resource path="res://pictures/spiceandwolfmap.jpeg" type="Texture" id=5]
 [ext_resource path="res://fonts/connection_ii/ConnectionII.otf" type="DynamicFontData" id=6]
-[ext_resource path="res://scripts/ToggleFullscreenButton.gd" type="Script" id=7]
-[ext_resource path="res://scripts/QuitAppButton.gd" type="Script" id=8]
+[ext_resource path="res://scenes/ToggleFullscreenButton.gd" type="Script" id=7]
+[ext_resource path="res://scenes/QuitAppButton.gd" type="Script" id=8]
+[ext_resource path="res://scenes/WorldMapCamera.gd" type="Script" id=9]
+[ext_resource path="res://scenes/worldmap.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scenes/TabContainer.gd" type="Script" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 size = 60
@@ -20,6 +23,9 @@ default_font = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TabContainer" type="TabContainer" parent="."]
 margin_left = 7.0
@@ -28,8 +34,41 @@ margin_right = 1593.0
 margin_bottom = 893.0
 tab_align = 0
 drag_to_rearrange_enabled = true
+script = ExtResource( 12 )
+
+[node name="Map scene" type="ViewportContainer" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 51.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Map scene"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0, 0.305882, 0.494118, 1 )
+
+[node name="Viewport" type="Viewport" parent="TabContainer/Map scene"]
+size = Vector2( 1578, 831 )
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera2D" type="Camera2D" parent="TabContainer/Map scene/Viewport"]
+script = ExtResource( 9 )
+
+[node name="worldmap" parent="TabContainer/Map scene/Viewport" instance=ExtResource( 10 )]
 
 [node name="Trade" type="HBoxContainer" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -42,28 +81,29 @@ alignment = 1
 script = ExtResource( 2 )
 
 [node name="Market" type="VBoxContainer" parent="TabContainer/Trade"]
-margin_right = 704.0
+margin_left = 472.0
+margin_right = 940.0
 margin_bottom = 831.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="TabContainer/Trade/Market"]
-margin_right = 704.0
+margin_right = 468.0
 margin_bottom = 33.0
 size_flags_vertical = 8
 text = "Market Inventory"
 
 [node name="Inventory" type="Control" parent="TabContainer/Trade/Market"]
-margin_top = 37.0
-margin_right = 704.0
+margin_left = -472.0
+margin_right = -4.0
 margin_bottom = 831.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 3 )
 
 [node name="Center" type="VBoxContainer" parent="TabContainer/Trade"]
-margin_left = 708.0
-margin_right = 869.0
+margin_left = 944.0
+margin_right = 1105.0
 margin_bottom = 831.0
 alignment = 1
 
@@ -94,27 +134,27 @@ margin_bottom = 493.0
 text = "Reset"
 
 [node name="Player" type="VBoxContainer" parent="TabContainer/Trade"]
-margin_left = 873.0
+margin_left = 1109.0
 margin_right = 1578.0
 margin_bottom = 831.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="TabContainer/Trade/Player"]
-margin_right = 705.0
+margin_right = 469.0
 margin_bottom = 33.0
 size_flags_vertical = 8
 text = "Player Inventory"
 
 [node name="Inventory" type="Control" parent="TabContainer/Trade/Player"]
 margin_top = 37.0
-margin_right = 705.0
+margin_right = 469.0
 margin_bottom = 831.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource( 4 )
 
-[node name="Map" type="ScrollContainer" parent="TabContainer"]
+[node name="Map temp" type="ScrollContainer" parent="TabContainer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -123,7 +163,7 @@ margin_top = 51.0
 margin_right = -4.0
 margin_bottom = -4.0
 
-[node name="TextureRect" type="TextureRect" parent="TabContainer/Map"]
+[node name="TextureRect" type="TextureRect" parent="TabContainer/Map temp"]
 margin_right = 2000.0
 margin_bottom = 2846.0
 texture = ExtResource( 5 )
@@ -159,5 +199,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Exit"
 script = ExtResource( 8 )
+[connection signal="tab_selected" from="TabContainer" to="TabContainer" method="_on_TabContainer_tab_selected"]
 [connection signal="pressed" from="TabContainer/Trade/Center/ExchangeButton" to="TabContainer/Trade" method="_on_ExchangeButton_pressed"]
 [connection signal="pressed" from="TabContainer/Trade/Center/ResetButton" to="TabContainer/Trade" method="_on_ResetButton_pressed"]

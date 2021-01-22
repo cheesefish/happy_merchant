@@ -11,8 +11,8 @@ var items_backup = {}
 signal item_clicked
 
 func _init():
-	self.size_flags_horizontal = SIZE_EXPAND_FILL
-	self.size_flags_vertical = SIZE_EXPAND_FILL
+	size_flags_horizontal = SIZE_EXPAND_FILL
+	size_flags_vertical = SIZE_EXPAND_FILL
 	
 	panel = Panel.new()
 	panel.size_flags_horizontal = SIZE_EXPAND_FILL
@@ -21,7 +21,7 @@ func _init():
 	panel.anchor_bottom = 1
 	panel.margin_right = 0
 	panel.margin_bottom = 0
-	self.add_child(panel)
+	add_child(panel)
 	
 	scroll_container = ScrollContainer.new()
 	scroll_container.scroll_horizontal_enabled = true
