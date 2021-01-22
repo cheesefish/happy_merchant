@@ -10,7 +10,7 @@ func _init():
 	make_island(Vector2(0,0)*s, 500, 12, 1, 0.6*s, 567898765456743)
 	make_island(Vector2(-250,150)*s, 50, 6, 5, 0.4*s, 4343434322434324343)
 	make_sea_routes()
-	make_map()
+	redraw_nodes()
 
 func make_island(center:Vector2, radius, num_nodes, rand_scale=1.0, scale=1.0, rng_seed=1234567890):	
 	var rng = RandomNumberGenerator.new()
@@ -78,11 +78,4 @@ func does_line_segments_intersect(from_node, to_node, collision_node):
 func redraw_nodes():
 	for node in nodes.values():
 		add_child(WorldNodeMarker.new().init(node, Color.white))
-
-func make_map():
-	for node in nodes.values():
-		for name2 in node.edges.keys():
-			var v1 = node.position
-			var v2 = nodes[name2].position
-			add_child()
 			
